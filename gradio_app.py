@@ -114,7 +114,7 @@ with gr.Blocks(css='style.css') as demo:
     gr.Markdown(DESCRIPTION)
 
     gr.HTML(
-        '''<a href="https://huggingface.co/spaces/orpatashnik/local-prompt-mixing?duplicate=true">
+        '''<a href="https://huggingface.co/spaces/garibida/ReNoise-Inversion?duplicate=true">
         <img src="https://bit.ly/3gLdBN6" alt="Duplicate Space"></a>Duplicate the Space to run privately without waiting in queue''')
 
     with gr.Row():
@@ -206,6 +206,7 @@ with gr.Blocks(css='style.css') as demo:
                 )
                 noise_correction = gr.Checkbox(
                     label="Preform Noise Correction"
+                    value=True
                 )
 
             run_button = gr.Button('Edit')
