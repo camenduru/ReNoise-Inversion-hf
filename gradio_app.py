@@ -152,13 +152,16 @@ with gr.Blocks(css='style.css') as demo:
                 )
                 inersion_strength = gr.Slider(
                     label='Inversion Strength',
+                    info="Indicates how much to invert the reference image. The number of denoising steps depends on the amount of noise initially added. When strength is 1, the image will be inverted to complete noise and the denoising process will run for the full number of steps (4). When strength is 0.5, the image will be inverted to half noise and the denoising process will run for 2 steps.",
                     minimum=0.0,
                     maximum=1.0,
                     value=1.0,
                     step=0.25
                 )
                 avg_gradients = gr.Checkbox(
-                    label="Preform Estimation Averaging"
+                    label="Preform Estimation Averaging",
+                    info="IMPROVES RECONSTRUCTION. Averagin the estination over multiple ReNoise iterations can improve the quality of the reconstruction. The Next 4 sliders control the range of steps to average over. The first two sliders control the range of steps to average over for the first inversion step (t < 250). The last two sliders control the range of steps to average over for the rest of the inversion step (t > 250).",
+                    value=True
                 )
                 first_step_range_start = gr.Slider(
                     label='First Estimation in Average (t < 250)',
@@ -192,6 +195,7 @@ with gr.Blocks(css='style.css') as demo:
                 num_ac_rolls = 5
                 lambda_ac = gr.Slider(
                     label='Labmda AC',
+                    info="IMPROVES EDITABILITY. The weight of the pair loss in the noise prediction regulariztion. This loss encourages the inversion to predict more editable noise. A higher value allows more significant changes to the image (higher editability), but may result in less faithful reconstructions.",
                     minimum=0.0,
                     maximum=50.0,
                     value=20.0,
@@ -199,13 +203,15 @@ with gr.Blocks(css='style.css') as demo:
                 )
                 lambda_kl = gr.Slider(
                     label='Labmda Patch KL',
+                    info="IMPROVES EDITABILITY. This weight controls the strength of the patch-level KL divergence term in the noise prediction regularization.  While it encourages editable noise like the Labmda AC, it often has a less detrimental effect on reconstruction fidelity.",
                     minimum=0.0,
                     maximum=0.4,
                     value=0.065,
                     step=0.005
                 )
                 noise_correction = gr.Checkbox(
-                    label="Preform Noise Correction"
+                    label="Preform Noise Correction",
+                    info="IMPROVES RECONSTRUCTION. Performs noise correction to improve the reconstruction of the image.",
                     value=True
                 )
 
@@ -363,4 +369,4 @@ with gr.Blocks(css='style.css') as demo:
     ]
     run_button.click(fn=main_pipeline, inputs=inputs, outputs=outputs)
 
-demo.queue(max_size=50).launch(share=True)
+demo.queue(max_size=50).launch(share=False)
