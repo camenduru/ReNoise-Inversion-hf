@@ -369,4 +369,4 @@ with gr.Blocks(css='style.css') as demo:
     ]
     run_button.click(fn=main_pipeline, inputs=inputs, outputs=outputs)
 
-demo.queue(max_size=50).launch(share=False)
+demo.queue(max_size=50).launch(share=True)
